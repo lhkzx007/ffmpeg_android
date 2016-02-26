@@ -1,14 +1,14 @@
 /**
- * ×î¼òµ¥µÄ»ùÓÚFFmpegµÄÊÓÆµ½âÂëÆ÷-°²×¿
+ * ï¿½ï¿½òµ¥µÄ»ï¿½ï¿½ï¿½FFmpegï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½×¿
  * Simplest FFmpeg Android Decoder
  * 
- * À×Ïöæè Lei Xiaohua
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Lei Xiaohua
  * leixiaohua1020@126.com
- * ÖÐ¹ú´«Ã½´óÑ§/Êý×ÖµçÊÓ¼¼Êõ
+ * ï¿½Ð¹ï¿½ï¿½ï¿½Ã½ï¿½ï¿½Ñ§/ï¿½ï¿½ï¿½Öµï¿½ï¿½Ó¼ï¿½ï¿½ï¿½
  * Communication University of China / Digital TV Technology
  * http://blog.csdn.net/leixiaohua1020
  * 
- * ±¾³ÌÐòÊÇ°²×¿Æ½Ì¨ÏÂ×î¼òµ¥µÄ»ùÓÚFFmpegµÄÊÓÆµ½âÂëÆ÷¡£Ëü¿ÉÒÔ½«ÊäÈëµÄÊÓÆµÊý¾Ý½âÂë³ÉYUVÏñËØÊý¾Ý¡£
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½×¿Æ½Ì¨ï¿½ï¿½ï¿½ï¿½òµ¥µÄ»ï¿½ï¿½ï¿½FFmpegï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½YUVï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½
  * 
  * This software is the simplest decoder based on FFmpeg in Android. It can decode video stream
  * to raw YUV data.
@@ -19,10 +19,12 @@ package com.leixiaohua1020.sffmpegandroiddecoder;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.R.integer;
 import android.app.Activity;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
+import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -44,7 +46,7 @@ public class MainActivity extends Activity {
 		
 		startButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0){
-
+			     
 				String folderurl=Environment.getExternalStorageDirectory().getPath();
 				
 				String urltext_input=urlEdittext_input.getText().toString();
@@ -71,6 +73,8 @@ public class MainActivity extends Activity {
     
     //JNI
     public native int decode(String inputurl, String outputurl);
+    
+    public native int decodeAndPlay(String inputurl,Surface surface);
     
     static{
     	System.loadLibrary("avutil-54");
