@@ -319,6 +319,11 @@ JNIEXPORT jint JNICALL Java_com_leixiaohua1020_sffmpegandroiddecoder_MainActivit
   sprintf(info, "%s[Format    ]%s\n",info, pFormatCtx->iformat->name);
   sprintf(info, "%s[Codec     ]%s\n",info, pCodecCtx->codec->name);
   sprintf(info, "%s[Resolution]%dx%d\n",info, pCodecCtx->width,pCodecCtx->height);
+<<<<<<< Updated upstream
+=======
+
+  LOGI("info =>%s",info);
+>>>>>>> Stashed changes
 
 	LOGI("\ninfo:\n%s",info);
 
@@ -405,5 +410,7 @@ JNIEXPORT jint JNICALL Java_com_leixiaohua1020_sffmpegandroiddecoder_MainActivit
 	avcodec_close(pCodecCtx);
 	avformat_close_input(&pFormatCtx);
 
+	(*env)->ReleaseStringUTFChars(env,input_jstr,input_str);
+	(*env)->ReleaseStringUTFChars(env,output_jstr,output_str);
 	return 0;
 }
