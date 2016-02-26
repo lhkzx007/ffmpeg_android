@@ -163,7 +163,7 @@ JNIEXPORT jint JNICALL Java_com_leixiaohua1020_sffmpegandroiddecoder_MainActivit
 				sws_scale(img_convert_ctx, (const uint8_t* const*)pFrame->data, pFrame->linesize, 0, pCodecCtx->height,
 					pFrameYUV->data, pFrameYUV->linesize);
 
-				//获取数据长度
+				//获取数据长度 宽x高x3/2
 				y_size=pCodecCtx->width*pCodecCtx->height;
 				//写入文件
 				fwrite(pFrameYUV->data[0],1,y_size,fp_yuv);    //Y
@@ -181,6 +181,7 @@ JNIEXPORT jint JNICALL Java_com_leixiaohua1020_sffmpegandroiddecoder_MainActivit
 				frame_cnt++;
 			}
 		}
+		//释放数据包
 		av_free_packet(packet);
 	}
 
