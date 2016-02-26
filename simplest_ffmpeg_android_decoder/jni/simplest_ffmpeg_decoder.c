@@ -34,7 +34,7 @@
 #define LOGI(format, ...)  printf("(^_^) " format "\n", ##__VA_ARGS__)
 #endif
 
-
+static sp<Surface> surface;
 //Output FFmpeg's av_log()
 void custom_log(void *ptr, int level, const char* fmt, va_list vl){
 	FILE *fp=fopen("/storage/emulated/0/av_log.txt","a+");
@@ -152,16 +152,20 @@ JNIEXPORT jint JNICALL Java_com_leixiaohua1020_sffmpegandroiddecoder_MainActivit
 	while(av_read_frame(pFormatCtx, packet)>=0){
 
 		if(packet->stream_index==videoindex){
+			//作用是解码一帧视频数据。输入一个压缩编码的结构体AVPacket，输出一个解码后的结构体AVFrame
 			ret = avcodec_decode_video2(pCodecCtx, pFrame, &got_picture, packet);
 			if(ret < 0){
 				LOGE("Decode Error.\n");
 				return -1;
 			}
 			if(got_picture){
+				//将得到的这一帧 转换为YUV格式
 				sws_scale(img_convert_ctx, (const uint8_t* const*)pFrame->data, pFrame->linesize, 0, pCodecCtx->height,
 					pFrameYUV->data, pFrameYUV->linesize);
 
+				//获取数据长度
 				y_size=pCodecCtx->width*pCodecCtx->height;
+				//写入文件
 				fwrite(pFrameYUV->data[0],1,y_size,fp_yuv);    //Y
 				fwrite(pFrameYUV->data[1],1,y_size/4,fp_yuv);  //U
 				fwrite(pFrameYUV->data[2],1,y_size/4,fp_yuv);  //V
