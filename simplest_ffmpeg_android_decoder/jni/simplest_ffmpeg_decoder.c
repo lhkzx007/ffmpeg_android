@@ -222,8 +222,8 @@ JNIEXPORT jint JNICALL Java_com_leixiaohua1020_sffmpegandroiddecoder_MainActivit
 	av_frame_free(&pFrame);
 	avcodec_close(pCodecCtx);
 	avformat_close_input(&pFormatCtx);
-
-
+	(*env)->ReleaseStringUTFChars(env,input_jstr,input_str);
+	(*env)->ReleaseStringUTFChars(env,output_jstr,output_str);
 
 }
 
